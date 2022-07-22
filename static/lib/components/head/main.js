@@ -22,10 +22,6 @@ export class Component {
     };
 
     this.applyConfig();
-    this.updateConfig({
-      smallBox: [this.elements.back, this.elements.time],
-      bigWrap: this.elements.textWrap,
-    });
   }
 
   applyConfig() {
@@ -43,10 +39,18 @@ export class Component {
   }
 
   async updateConfig(newConfig) {
-    await this.changeOpacity(0);
+    await this.disappear();
     this.activeConfig = newConfig;
     this.applyConfig();
+    await this.appear();
+  }
+
+  async appear() {
     await this.changeOpacity(1);
+  }
+
+  async disappear() {
+    await this.changeOpacity(0);
   }
 
   async changeOpacity(opacity, time = 200) {
@@ -58,5 +62,48 @@ export class Component {
     }
 
     this.elements.bigWrap.style.opacity = opacity;
+  }
+
+  attributeChangedCallback(attribute, oldValue, newValue) {
+    switch (attribute) {
+      case "title":
+        this.elements.title.innerText = newValue;
+        break;
+      case "description":
+        this.elements.description.innerText = newValue;
+        break;
+      case "mode":
+        this.changeMode(newValue);
+        break;
+      case "appear":
+        this.appear();
+        break;
+    }
+  }
+
+  async changeMode(mode) {
+    this.mode = mode;
+    if (mode != "timeSelect") this.usersMulti = mode == "usersMulti";
+
+    switch (mode) {
+      case "normal":
+        this.activeConfig = {
+          smallBox: [this.elements.back],
+          bigWrap: this.elements.textWrap,
+        };
+        break;
+      case "usersMulti":
+      case "users":
+        this.activeConfig = {
+          smallBox: [this.elements.back, this.elements.time],
+          bigWrap: this.elements.textWrap,
+        };
+        break;
+      case "timeSelect":
+        this.activeConfig = {
+          smallBox: [this.elements.back],
+          bigWrap: this.elements.timeSelect,
+        };
+    }
   }
 }
