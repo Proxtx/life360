@@ -1,0 +1,16 @@
+{
+  "components": {
+    "transition-box": {
+      "name": "transition-box",
+      "template": "/components/transition-box/index.html",
+      "component": "/components/transition-box/main.js",
+      "styles": ["/main.css", "/components/transition-box/style.css"]
+    },
+    "head": {
+      "name": "info-head",
+      "template": "/components/head/index.html",
+      "component": "/components/head/main.js",
+      "styles": ["/main.css", "/components/head/style.css"]
+    }
+  }
+}

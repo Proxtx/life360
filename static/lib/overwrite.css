@@ -1,0 +1,9 @@
+:host {
+  --accentColor: #255c99;
+  --backgroundColor: #c0d6df;
+  display: block;
+}
+
+#wrap {
+  width: 100%;
+}

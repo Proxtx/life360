@@ -1,0 +1,48 @@
+@font-face {
+  font-family: NotoSans;
+  src: url("NotoSans.ttf");
+}
+
+:root {
+  --textColor: #1d1e18;
+  --boxBackground: #c0d6df;
+  --background: #eaeaea;
+  --accentColor: #255c99;
+  --fontFamily: NotoSans;
+  --animationSpeed: 0.5s;
+  --gap: 20px;
+}
+
+body {
+  background-color: var(--background);
+  font-family: var(--fontFamily);
+  margin: 0;
+  padding: var(--gap);
+}
+
+.box {
+  background-color: var(--boxBackground);
+  padding: 15px;
+  position: relative;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating {
+  max-width: 80vw;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 100%;
+  margin: 0;
+  font-weight: 100;
+}
