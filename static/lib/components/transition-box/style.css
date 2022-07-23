@@ -22,6 +22,11 @@
   }
 }
 
+:host {
+  overflow: hidden;
+}
+
 #transitionBox {
-  animation: flyIn var(--animationSpeed) forwards;
+  opacity: 0;
+  transform: translateX(100vw);
 }

@@ -7,5 +7,10 @@ export class Component {
     window.disappear
       ? window.disappear.push(disappearFunction)
       : (window.disappear = [disappearFunction]);
+
+    setTimeout(() => {
+      options.shadowDom.getElementById("transitionBox").style.animation =
+        "flyIn var(--animationSpeed) forwards";
+    }, window.disappear.length * 200);
   }
 }

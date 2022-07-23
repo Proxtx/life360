@@ -18,6 +18,10 @@ body {
   font-family: var(--fontFamily);
   margin: 0;
   padding: var(--gap);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  opacity: 0;
 }
 
 .box {
@@ -36,6 +40,11 @@ body {
   max-width: 80vw;
 }
 
+.widget {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 h1,
 h2,
 h3,
@@ -45,4 +54,8 @@ h6 {
   line-height: 100%;
   margin: 0;
   font-weight: 100;
+}
+
+.statsWrap {
+  text-align: right;
 }

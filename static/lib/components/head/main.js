@@ -1,3 +1,5 @@
+import { link } from "../../link.js";
+
 export class Component {
   elements;
   activeConfig;
@@ -14,22 +16,30 @@ export class Component {
       description: this.document.getElementById("description"),
       itemHolder: this.document.getElementById("itemHolder"),
       timeSelect: this.document.getElementById("timeSelect"),
+      users: this.document.getElementById("users"),
     };
 
-    this.activeConfig = {
-      smallBox: [this.elements.back],
-      bigWrap: this.elements.textWrap,
-    };
+    window.headComponent = this;
 
-    this.applyConfig();
+    this.elements.back.addEventListener("click", () => {
+      if (this.mode == "timeSelect")
+        return this.changeMode(this.usersMulti ? "usersMulti" : "users");
+      link("../overview");
+    });
+
+    this.elements.time.addEventListener("click", () => {
+      this.changeMode("timeSelect");
+    });
   }
 
   applyConfig() {
-    for (let child of this.elements.smallWrap.children)
-      this.elements.itemHolder.appendChild(child);
+    while (this.elements.smallWrap.children.length > 0)
+      for (let child of this.elements.smallWrap.children)
+        this.elements.itemHolder.appendChild(child);
 
-    for (let child of this.elements.bigWrap.children)
-      this.elements.itemHolder.appendChild(child);
+    while (this.elements.bigWrap.children.length > 0)
+      for (let child of this.elements.bigWrap.children)
+        this.elements.itemHolder.appendChild(child);
 
     for (let child of this.activeConfig.smallBox) {
       this.elements.smallWrap.appendChild(child);
@@ -55,13 +65,13 @@ export class Component {
 
   async changeOpacity(opacity, time = 200) {
     await new Promise((r) => setTimeout(r, time));
-
     for (let child of this.elements.smallWrap.children) {
       child.style.opacity = opacity;
       await new Promise((r) => setTimeout(r, time));
     }
 
     this.elements.bigWrap.style.opacity = opacity;
+    await new Promise((r) => setTimeout(r, time * 2));
   }
 
   attributeChangedCallback(attribute, oldValue, newValue) {
@@ -75,9 +85,6 @@ export class Component {
       case "mode":
         this.changeMode(newValue);
         break;
-      case "appear":
-        this.appear();
-        break;
     }
   }
 
@@ -87,23 +94,24 @@ export class Component {
 
     switch (mode) {
       case "normal":
-        this.activeConfig = {
+        await this.updateConfig({
           smallBox: [this.elements.back],
           bigWrap: this.elements.textWrap,
-        };
+        });
         break;
       case "usersMulti":
       case "users":
-        this.activeConfig = {
+        await this.updateConfig({
           smallBox: [this.elements.back, this.elements.time],
-          bigWrap: this.elements.textWrap,
-        };
+          bigWrap: this.elements.users,
+        });
         break;
       case "timeSelect":
-        this.activeConfig = {
+        await this.updateConfig({
           smallBox: [this.elements.back],
           bigWrap: this.elements.timeSelect,
-        };
+        });
+        break;
     }
   }
 }

@@ -1,0 +1,30 @@
+@keyframes statsIntro {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  0% {
+    transform: translate(-50%, 100%);
+  }
+}
+
+#map {
+  height: 80vh;
+  width: 100%;
+}
+
+#stats {
+  transition: 1s;
+  position: absolute;
+  left: 50%;
+  bottom: 0%;
+  transform: translateX(-50%);
+  width: calc(100% - var(--gap) * 2);
+  height: 4.5vh;
+  background-color: var(--boxBackground);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  animation: statsIntro 1s;
+}

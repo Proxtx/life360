@@ -1,3 +1,3 @@
-import { disappear } from "../lib/lib.js";
+import { disappear } from "../lib/link.js";
 
 await disappear();

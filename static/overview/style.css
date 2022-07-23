@@ -1,0 +1,11 @@
+#map {
+  height: 400px;
+  border: 2px solid var(--accentColor);
+}
+
+#expand {
+  position: absolute;
+  z-index: 2000;
+  right: var(--gap);
+  bottom: var(--gap);
+}
