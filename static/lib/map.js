@@ -1,4 +1,4 @@
-import { meta } from "./api.js";
+import { locations, meta } from "./api.js";
 import users from "./users.js";
 
 while (!window.L) {
@@ -22,6 +22,11 @@ L.tileLayer(
 
 export const renderLocationData = (locationData) => {
   genPath(locationData, "92952756-c1a5-4a1d-9165-a95da92d2877").addTo(map);
+  genPlaces(locationData).forEach((element) => element.addTo(map));
+  genUsers(locationData).forEach((element) => {
+    element.addTo(map);
+    console.log(element.getElement());
+  });
 };
 
 const genPath = (locations, uId) => {
@@ -35,6 +40,93 @@ const genPath = (locations, uId) => {
   return L.polyline(points, {
     color: "black",
   });
+};
+
+const genPlaces = (locations) => {
+  let locs = {};
+
+  for (let time in locations) {
+    for (let user in locations[time]) {
+      let location = locations[time][user];
+      if (location.address && !locs[location.address])
+        locs[location.address] = genLocationCircle(location);
+    }
+  }
+
+  return Object.values(locs);
+};
+
+const genLocationCircle = (location) => {
+  return L.circle([location.latitude, location.longitude], {
+    color: "black",
+    radius: 50,
+  }).bindPopup("<h2>" + location.address + "</h2>");
+};
+
+const genUsers = (locations) => {
+  let times = Object.keys(locations).sort((a, b) => a - b);
+  let latestLocations = locations[times[times.length - 1]];
+  let users = [];
+  for (let user in latestLocations) {
+    users.push(genUser(latestLocations[user], user));
+  }
+
+  console.log(users);
+  return users;
+};
+
+const genUser = (location, uId) => {
+  /*console.log([
+    [location.latitude - 0.1, Number(location.latitude) + 0.1],
+    [location.longitude - 0.1, Number(location.latitude) + 0.1],
+  ]);*/
+  /*let overlay = L.imageOverlay(users[uId].avatar, [
+    [location.latitude - 0.001, location.longitude - 0.001],
+    [Number(location.latitude) + 0.001, Number(location.longitude) + 0.001],
+  ]);*/
+  // 1) Convert LatLng into container pixel position.
+  /*var originPoint = map.latLngToContainerPoint([
+    location.latitude,
+    location.longitude,
+  ]);*/
+  // 2) Add the image pixel dimensions.
+  // Positive x to go right (East).
+  // Negative y to go up (North).
+  //var nextCornerPoint = originPoint.add({ x: 24, y: -24 });
+  // 3) Convert back into LatLng.
+  //var nextCornerLatLng = map.containerPointToLatLng(nextCornerPoint);
+  /*var imageOverlay = L.imageOverlay(users[uId].avatar, [
+    [location.latitude, location.longitude],
+    nextCornerLatLng,
+  ]).addTo(map);*/
+  //console.log(overlay.getElement());
+  //return overlay;
+
+  /*let overlay = L.imageOverlay(users[uId].avatar, [
+    [location.latitude - 0.001, location.longitude - 0.001],
+    [Number(location.latitude) + 0.001, Number(location.longitude) + 0.001],
+  ]);
+
+  map.on("zoom", () => {
+    let layerPoints = map.latLngToLayerPoint([location.latitude, location.longitude])
+    let startLayerPoints = [layerPoints[0] - 20, layerPoints[1] - 20];
+    let endLayerPoints = [layerPoints[0] + 20, layerPoints[1] + 20];
+    let latLongStart = map.layerPointToLatLng(startLayerPoints);
+    let latLongEnd = map.layerPointToLatLng(endLayerPoints);
+
+    overlay.setLatLngs(latLon)
+  })*/
+
+  let marker = L.marker([location.latitude, location.longitude], {
+    icon: L.icon({
+      iconUrl: users[uId].avatar,
+      iconSize: [40, 40],
+    }),
+  });
+
+  marker.bindPopup("<h2>" + users[uId].name + "</h2>");
+
+  return marker;
 };
 
 const oldGenPath = (locations, user, userAvatar) => {
