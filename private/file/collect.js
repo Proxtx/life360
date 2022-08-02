@@ -25,28 +25,20 @@ export const data = async (type, start, end, filter = (d) => d) => {
 export const handlers = {
   users: async () => {
     let users = await data("data", 1, null, (value) => {
-      let res = [];
       for (let uId in value) {
-        res.push({
+        value[uId] = {
           avatar: value[uId].avatar,
           name: value[uId].firstName,
-          uId,
-        });
+        };
       }
 
-      return res;
+      return value;
     });
     return users[Object.keys(users)[0]];
   },
 
   userIds: async () => {
-    let res = await handlers.users();
-    let uIds = [];
-    res.forEach((element) => {
-      uIds.push(element.uId);
-    });
-
-    return uIds;
+    return Object.keys(await handlers.users());
   },
 
   locationsInTimespan: async (users, start, end) => {
@@ -54,10 +46,17 @@ export const handlers = {
       for (let k in value) {
         if (!users.includes(k)) delete value[k];
       }
+      return value;
     });
   },
 
-  overviewMap: async () => {},
+  overviewMap: async () => {
+    let uIds = await handlers.userIds();
+    let locs = await handlers.locationsInTimespan(uIds, handlers.hour * 20);
+
+    return locs;
+  },
 
   week: 1.6534e-9,
+  hour: 3.6e6,
 };
