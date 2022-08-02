@@ -52,7 +52,7 @@ export const handlers = {
 
   overviewMap: async () => {
     let uIds = await handlers.userIds();
-    let locs = await handlers.locationsInTimespan(uIds, handlers.hour * 20);
+    let locs = await handlers.locationsInTimespan(uIds, handlers.hour * 2);
 
     return locs;
   },
