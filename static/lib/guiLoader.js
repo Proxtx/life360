@@ -16,3 +16,5 @@ document.body.style.opacity = 1;
 for (let i of guiLoaded) {
   i();
 }
+
+window.guiLoaded = null;

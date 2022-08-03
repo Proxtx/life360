@@ -5,22 +5,31 @@ while (!window.L) {
   await new Promise((r) => setTimeout(r, 500));
 }
 
-const map = L.map("map").setView([0, 0], 0);
+const map = L.map("map").setView([0, 0], 13);
 
-L.tileLayer(
-  "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
-  {
-    attribution:
-      'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a> Proxtx',
-    maxZoom: 18,
-    id: "mapbox/streets-v11",
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken: await meta.mapBoxAccessToken,
-  }
-).addTo(map);
+var mapBoxUrl =
+  "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}";
+
+L.tileLayer(mapBoxUrl, {
+  attribution:
+    'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a> Proxtx',
+  maxZoom: 18,
+  id: "mapbox/streets-v11",
+  tileSize: 512,
+  zoomOffset: -1,
+  accessToken: await meta.mapBoxAccessToken,
+}).addTo(map);
+
+const clearMap = () => {
+  map.eachLayer((layer) => {
+    if (mapBoxUrl != layer._url) {
+      map.removeLayer(layer);
+    }
+  });
+};
 
 export const renderLocationData = (locationData) => {
+  clearMap();
   let bounds = [];
 
   genPaths(locationData).forEach((element) => element.addTo(map));
@@ -34,7 +43,7 @@ export const renderLocationData = (locationData) => {
     bounds.push([element.location.latitude, element.location.longitude]);
   });
 
-  map.fitBounds(bounds);
+  if (bounds.length >= 1) map.flyToBounds(bounds, { duration: 2 });
 };
 
 const genPaths = (locations) => {

@@ -5,6 +5,7 @@ export class Component {
   elements;
   activeConfig;
   activeUsers = [];
+  callback;
 
   constructor(options) {
     this.document = options.shadowDom;
@@ -121,6 +122,8 @@ export class Component {
         });
         break;
     }
+
+    this.change();
   }
 
   changeTimeSelectVisibility(visible) {
@@ -149,6 +152,12 @@ export class Component {
         this.activeUsers.push(uId);
         img.style.border = "5px solid " + users[uId].color;
       }
+
+      this.change();
     });
+  }
+
+  change() {
+    this.callback && this.callback(this);
   }
 }
