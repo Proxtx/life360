@@ -76,3 +76,9 @@
   margin-top: var(--gap);
   height: 100vh;
 }
+
+.timeSelectWidget {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
