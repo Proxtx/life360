@@ -51,6 +51,9 @@
   height: 100%;
   border-radius: 50%;
   aspect-ratio: 1;
+  border: 0px;
+  transition: var(--animationSpeed);
+  box-sizing: border-box;
 }
 
 #users {
@@ -59,4 +62,17 @@
   display: flex;
   gap: 5px;
   overflow-x: auto;
+}
+
+.timeSelectWrap {
+  transition: calc(var(--animationSpeed) * 2);
+  width: 100%;
+  height: 0vh;
+  margin-top: 0;
+  overflow: hidden;
+}
+
+.timeSelectExtended {
+  margin-top: var(--gap);
+  height: 100vh;
 }

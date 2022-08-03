@@ -5,7 +5,7 @@ while (!window.L) {
   await new Promise((r) => setTimeout(r, 500));
 }
 
-const map = L.map("map").setView([51.505, -0.09], 13);
+const map = L.map("map").setView([0, 0], 0);
 
 L.tileLayer(
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
@@ -28,7 +28,7 @@ export const renderLocationData = (locationData) => {
   genUsers(locationData).forEach((element) => {
     element.addTo(map);
     let html = element.getElement();
-    html.style.borderRadius = "50%";
+    html.style.borderRadius = "15px";
     html.style.border = "3px solid " + users[element.uId].color;
 
     bounds.push([element.location.latitude, element.location.longitude]);

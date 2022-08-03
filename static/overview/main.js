@@ -1,6 +1,5 @@
 import { link } from "../lib/link.js";
 import { locations } from "../lib/api.js";
-import users from "../lib/users.js";
 import { renderLocationData } from "../lib/map.js";
 
 window.expand = async () => {
@@ -9,6 +8,8 @@ window.expand = async () => {
 };
 
 let overview = await locations.getOverview(cookie.pwd);
-console.log(overview, users);
-
 renderLocationData(overview);
+
+let latest = Object.keys(overview).sort((a, b) => a - b);
+latest = latest[latest.length - 1];
+console.log(new Date(Number(latest)));

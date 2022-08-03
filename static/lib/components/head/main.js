@@ -1,8 +1,10 @@
 import { link } from "../../link.js";
+import users from "../../users.js";
 
 export class Component {
   elements;
   activeConfig;
+  activeUsers = [];
 
   constructor(options) {
     this.document = options.shadowDom;
@@ -17,6 +19,7 @@ export class Component {
       itemHolder: this.document.getElementById("itemHolder"),
       timeSelect: this.document.getElementById("timeSelect"),
       users: this.document.getElementById("users"),
+      timeSelectWrap: this.document.getElementById("timeSelectWrap"),
     };
 
     window.headComponent = this;
@@ -30,6 +33,8 @@ export class Component {
     this.elements.time.addEventListener("click", () => {
       this.changeMode("timeSelect");
     });
+
+    this.createUsers();
   }
 
   applyConfig() {
@@ -94,6 +99,7 @@ export class Component {
 
     switch (mode) {
       case "normal":
+        this.changeTimeSelectVisibility(false);
         await this.updateConfig({
           smallBox: [this.elements.back],
           bigWrap: this.elements.textWrap,
@@ -101,17 +107,48 @@ export class Component {
         break;
       case "usersMulti":
       case "users":
+        this.changeTimeSelectVisibility(false);
         await this.updateConfig({
           smallBox: [this.elements.back, this.elements.time],
           bigWrap: this.elements.users,
         });
         break;
       case "timeSelect":
+        this.changeTimeSelectVisibility(true);
         await this.updateConfig({
           smallBox: [this.elements.back],
           bigWrap: this.elements.timeSelect,
         });
         break;
     }
+  }
+
+  changeTimeSelectVisibility(visible) {
+    if (visible)
+      this.elements.timeSelectWrap.className =
+        "timeSelectWrap timeSelectExtended";
+    else this.elements.timeSelectWrap.className = "timeSelectWrap";
+  }
+
+  createUsers() {
+    for (let i in users) this.appendUser(i);
+  }
+
+  appendUser(uId) {
+    let img = document.createElement("img");
+    img.src = users[uId].avatar;
+    img.className = "user";
+    this.elements.users.appendChild(img);
+
+    img.addEventListener("click", () => {
+      let active = this.activeUsers.includes(uId);
+      if (active) {
+        img.style.border = "0px solid " + users[uId].color;
+        this.activeUsers.splice(this.activeUsers.indexOf(uId), 1);
+      } else {
+        this.activeUsers.push(uId);
+        img.style.border = "5px solid " + users[uId].color;
+      }
+    });
   }
 }
