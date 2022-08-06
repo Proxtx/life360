@@ -11,6 +11,12 @@
       "template": "/components/head/index.html",
       "component": "/components/head/main.js",
       "styles": ["/main.css", "/components/head/style.css"]
+    },
+    "range-bar": {
+      "name": "range-bar",
+      "template": "/components/range-bar/index.html",
+      "component": "/components/range-bar/main.js",
+      "styles": ["/main.css", "/components/range-bar/style.css"]
     }
   }
 }
