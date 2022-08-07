@@ -23,6 +23,10 @@ export class Component {
       mouseActive = true;
     });
 
+    this.elements.selector.addEventListener("mouseup", () => {
+      console.log("yes");
+    });
+
     document.addEventListener("mouseup", () => {
       console.log(mouseActive);
       mouseActive = false;
