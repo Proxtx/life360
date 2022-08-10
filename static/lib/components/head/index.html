@@ -5,8 +5,8 @@
 
 <div class="timeSelectWrap" id="timeSelectWrap">
   <div class="box widget timeSelectWidget">
-    <m-text-input date="true" placeholder="Start"></m-text-input>
-    <m-text-input date="true" placeholder="End"></m-text-input>
+    <m-text-input date="true" placeholder="Start" id="dateStart"></m-text-input>
+    <m-text-input date="true" placeholder="End" id="dateEnd"></m-text-input>
     <div class="checkBoxWrap">
       <m-checkbox></m-checkbox><m-text>Use Day</m-text>
     </div>
@@ -19,12 +19,23 @@
     <m-text>Start</m-text>
     <range-bar
       start="0"
-      end="23"
+      end="24"
       value="12"
-      limitStart="5"
-      limitEnd="20"
+      limitStart="0"
+      limitEnd="24"
+      id="startSlider"
     ></range-bar>
+    <m-text><a id="startNumber">12</a>:00</m-text>
     <m-text>End</m-text>
+    <range-bar
+      start="0"
+      end="24"
+      value="11"
+      limitStart="0"
+      limitEnd="24"
+      id="endSlider"
+    ></range-bar>
+    <m-text><a id="endNumber">11</a>:00</m-text>
   </div>
 </div>
 

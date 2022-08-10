@@ -9,10 +9,10 @@ export const loadFile = async (folder, file) => {
 
 export const getTimespan = async (folder) => {
   let dates = await getFilesInOrder(folder);
-  let start = dates[0];
+  let start = Number(dates[0]);
   let load = await loadFile(folder, dates[dates.length - 1] + ".json");
   let times = getTimesInFileInOrder(load.file);
-  let end = times[times.length - 1];
+  let end = Number(times[times.length - 1]);
   return { success: true, start, end };
 };
 

@@ -1,5 +1,6 @@
 import { link } from "../../link.js";
 import users from "../../users.js";
+import { locations } from "../../api.js";
 
 export class Component {
   elements;
@@ -21,6 +22,12 @@ export class Component {
       timeSelect: this.document.getElementById("timeSelect"),
       users: this.document.getElementById("users"),
       timeSelectWrap: this.document.getElementById("timeSelectWrap"),
+      startSlider: this.document.getElementById("startSlider"),
+      startNumber: this.document.getElementById("startNumber"),
+      endSlider: this.document.getElementById("endSlider"),
+      endNumber: this.document.getElementById("endNumber"),
+      startDate: this.document.getElementById("dateStart").component.input,
+      endDate: this.document.getElementById("dateEnd").component.input,
     };
 
     window.headComponent = this;
@@ -36,6 +43,15 @@ export class Component {
     });
 
     this.createUsers();
+
+    this.elements.startSlider.component.change = () => {
+      this.sliderChange();
+    };
+    this.elements.endSlider.component.change = () => {
+      this.sliderChange();
+    };
+
+    this.setTimespan();
   }
 
   applyConfig() {
@@ -52,6 +68,45 @@ export class Component {
     }
 
     this.elements.bigWrap.appendChild(this.activeConfig.bigWrap);
+  }
+
+  async setTimespan() {
+    let timespan = await locations.timespan(cookie.pwd);
+    this.elements.startDate.min = this.convertDateToHtml(timespan.start);
+    this.elements.endDate.max = this.convertDateToHtml(timespan.end);
+    this.elements.startDate.addEventListener("change", () => {
+      this.elements.endDate.min = this.elements.startDate.value;
+    });
+
+    this.elements.endDate.addEventListener("change", () => {
+      this.elements.startDate.max = this.elements.endDate.value;
+    });
+
+    this.elements.startDate.value = this.convertDateToHtml(
+      timespan.end - 1000 * 60 * 60 * 24
+    );
+    this.elements.endDate.value = this.convertDateToHtml(timespan.end);
+
+    this.elements.endSlider.setAttribute(
+      "value",
+      new Date(timespan.end).getHours()
+    );
+    this.elements.startSlider.setAttribute("value", 24);
+  }
+
+  convertDateToHtml(date) {
+    return new Date(date).toISOString().split("T")[0];
+  }
+
+  sliderChange() {
+    let startConfig = this.elements.startSlider.component.config;
+    let endConfig = this.elements.endSlider.component.config;
+    startConfig.limitEnd = endConfig.value;
+    endConfig.limitStart = startConfig.value;
+    this.elements.startSlider.component.applyConfig();
+    this.elements.endSlider.component.applyConfig();
+    this.elements.startNumber.innerText = startConfig.value;
+    this.elements.endNumber.innerText = endConfig.value;
   }
 
   async updateConfig(newConfig) {

@@ -7,6 +7,10 @@
   }
 }
 
+body {
+  overflow: hidden;
+}
+
 #map {
   height: 80vh;
   width: 100%;
