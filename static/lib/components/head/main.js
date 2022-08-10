@@ -74,12 +74,14 @@ export class Component {
     let timespan = await locations.timespan(cookie.pwd);
     this.elements.startDate.min = this.convertDateToHtml(timespan.start);
     this.elements.endDate.max = this.convertDateToHtml(timespan.end);
+
     this.elements.startDate.addEventListener("change", () => {
       this.elements.endDate.min = this.elements.startDate.value;
+      this.sliderChange();
     });
-
     this.elements.endDate.addEventListener("change", () => {
       this.elements.startDate.max = this.elements.endDate.value;
+      this.sliderChange();
     });
 
     this.elements.startDate.value = this.convertDateToHtml(
@@ -87,11 +89,13 @@ export class Component {
     );
     this.elements.endDate.value = this.convertDateToHtml(timespan.end);
 
-    this.elements.endSlider.setAttribute(
+    await this.elements.endSlider.setAttribute(
       "value",
       new Date(timespan.end).getHours()
     );
-    this.elements.startSlider.setAttribute("value", 24);
+    await this.elements.startSlider.setAttribute("value", 24);
+
+    this.sliderChange();
   }
 
   convertDateToHtml(date) {
@@ -101,8 +105,17 @@ export class Component {
   sliderChange() {
     let startConfig = this.elements.startSlider.component.config;
     let endConfig = this.elements.endSlider.component.config;
-    startConfig.limitEnd = endConfig.value;
-    endConfig.limitStart = startConfig.value;
+
+    if (
+      new Date(this.elements.startDate.value).toDateString() ==
+      new Date(this.elements.endDate.value).toDateString()
+    ) {
+      startConfig.limitEnd = endConfig.value;
+      endConfig.limitStart = startConfig.value;
+    } else {
+      startConfig.limitEnd = 24;
+      endConfig.limitStart = 0;
+    }
     this.elements.startSlider.component.applyConfig();
     this.elements.endSlider.component.applyConfig();
     this.elements.startNumber.innerText = startConfig.value;
