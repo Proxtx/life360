@@ -30,6 +30,7 @@ export class Component {
       endNumber: this.document.getElementById("endNumber"),
       startDate: this.document.getElementById("dateStart").component.input,
       endDate: this.document.getElementById("dateEnd").component.input,
+      useDate: this.document.getElementById("useDate"),
     };
 
     window.headComponent = this;
@@ -52,6 +53,16 @@ export class Component {
     this.elements.endSlider.component.change = () => {
       this.sliderChange();
     };
+
+    this.elements.useDate.addEventListener("change", () => {
+      this.useDate = this.elements.useDate.component.checked;
+      if (this.useDate) {
+        this.elements.startDate.style.display = "none";
+        this.elements.startDate.value = this.elements.endDate.value;
+      } else {
+        this.elements.startDate.style.display = "unset";
+      }
+    });
 
     this.setTimespan();
   }
@@ -83,6 +94,8 @@ export class Component {
     });
     this.elements.endDate.addEventListener("change", () => {
       this.elements.startDate.max = this.elements.endDate.value;
+      if (this.useDate)
+        this.elements.startDate.value = this.elements.endDate.value;
       this.sliderChange();
     });
 
