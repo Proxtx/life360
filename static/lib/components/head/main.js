@@ -7,6 +7,8 @@ export class Component {
   activeConfig;
   activeUsers = [];
   callback;
+  startTime;
+  endTime;
 
   constructor(options) {
     this.document = options.shadowDom;
@@ -120,6 +122,18 @@ export class Component {
     this.elements.endSlider.component.applyConfig();
     this.elements.startNumber.innerText = startConfig.value;
     this.elements.endNumber.innerText = endConfig.value;
+
+    this.calculateTime();
+  }
+
+  calculateTime() {
+    let sDate = new Date(this.elements.startDate.value);
+    let nDate = new Date(this.elements.endDate.value);
+    sDate.setHours(this.elements.startSlider.component.config.value);
+    nDate.setHours(this.elements.endSlider.component.config.value);
+    console.log(sDate, nDate, this.elements.startSlider.component.config.value);
+    this.startTime = sDate.getTime();
+    this.endTime = nDate.getTime();
   }
 
   async updateConfig(newConfig) {
@@ -181,6 +195,7 @@ export class Component {
           smallBox: [this.elements.back, this.elements.time],
           bigWrap: this.elements.users,
         });
+        this.change();
         break;
       case "timeSelect":
         this.changeTimeSelectVisibility(true);
@@ -190,8 +205,6 @@ export class Component {
         });
         break;
     }
-
-    this.change();
   }
 
   changeTimeSelectVisibility(visible) {
