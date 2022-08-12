@@ -30,14 +30,8 @@
         <m-button id="expand" onclick="window.expand()">Expand</m-button>
       </div></transition-box
     >
-    <transition-box
-      ><div class="box widget">
-        <h2>stats. this week.</h2>
-        <div class="statsWrap">
-          <p>meetings: 5</p>
-        </div>
-      </div></transition-box
-    >
+    <transition-box><data-box id="statsBox"></data-box></transition-box>
+    <script src="/private/render/auth.js" class="server"></script>
     <script src="/lib/guiLoader.js" type="module"></script>
     <script src="/lib/map.js" type="module"></script>
     <script src="main.js" type="module"></script>

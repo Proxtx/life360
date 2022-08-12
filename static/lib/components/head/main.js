@@ -9,6 +9,7 @@ export class Component {
   callback;
   startTime;
   endTime;
+  lastSelectedUser;
 
   constructor(options) {
     this.document = options.shadowDom;
@@ -64,7 +65,9 @@ export class Component {
       }
     });
 
-    this.setTimespan();
+    this.timeSpanPromise = this.setTimespan();
+    this.timeSpanResolved = false;
+    this.timeSpanPromise.then(() => (this.timeSpanResolved = true));
   }
 
   applyConfig() {
@@ -87,6 +90,8 @@ export class Component {
     let timespan = await locations.timespan(cookie.pwd);
     this.elements.startDate.min = this.convertDateToHtml(timespan.start);
     this.elements.endDate.max = this.convertDateToHtml(timespan.end);
+    this.elements.startDate.max = this.elements.endDate.value;
+    this.elements.endDate.min = this.elements.startDate.value;
 
     this.elements.startDate.addEventListener("change", () => {
       this.elements.endDate.min = this.elements.startDate.value;
@@ -99,16 +104,14 @@ export class Component {
       this.sliderChange();
     });
 
-    this.elements.startDate.value = this.convertDateToHtml(
-      timespan.end - 1000 * 60 * 60 * 24
-    );
+    this.elements.startDate.value = this.convertDateToHtml(timespan.end);
     this.elements.endDate.value = this.convertDateToHtml(timespan.end);
 
     await this.elements.endSlider.setAttribute(
       "value",
-      new Date(timespan.end).getHours()
+      new Date(timespan.end).getHours() + 1
     );
-    await this.elements.startSlider.setAttribute("value", 24);
+    await this.elements.startSlider.setAttribute("value", 0);
 
     this.sliderChange();
   }
@@ -144,7 +147,6 @@ export class Component {
     let nDate = new Date(this.elements.endDate.value);
     sDate.setHours(this.elements.startSlider.component.config.value);
     nDate.setHours(this.elements.endSlider.component.config.value);
-    console.log(sDate, nDate, this.elements.startSlider.component.config.value);
     this.startTime = sDate.getTime();
     this.endTime = nDate.getTime();
   }
@@ -238,20 +240,41 @@ export class Component {
     this.elements.users.appendChild(img);
 
     img.addEventListener("click", () => {
+      if (this.mode == "users" && this.lastSelectedUser) {
+        this.deselectUser(this.lastSelectedUser, this.activeUsers[0]);
+      }
+      this.lastSelectedUser = img;
       let active = this.activeUsers.includes(uId);
       if (active) {
-        img.style.border = "0px solid " + users[uId].color;
-        this.activeUsers.splice(this.activeUsers.indexOf(uId), 1);
+        this.deselectUser(img, uId);
       } else {
-        this.activeUsers.push(uId);
-        img.style.border = "5px solid " + users[uId].color;
+        this.selectUser(img, uId);
       }
+
+      localStorage.activeUsers = JSON.stringify(this.activeUsers);
 
       this.change();
     });
+
+    if (
+      localStorage.activeUsers &&
+      JSON.parse(localStorage.activeUsers).includes(uId)
+    )
+      img.click();
   }
 
-  change() {
+  selectUser(img, uId) {
+    this.activeUsers.push(uId);
+    img.style.border = "5px solid " + users[uId].color;
+  }
+
+  deselectUser(img, uId) {
+    img.style.border = "0px solid " + users[uId].color;
+    this.activeUsers.splice(this.activeUsers.indexOf(uId), 1);
+  }
+
+  async change() {
+    if (!this.timeSpanResolved) await this.timeSpanPromise;
     this.callback && this.callback(this);
   }
 }

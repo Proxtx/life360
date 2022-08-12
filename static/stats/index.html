@@ -9,8 +9,12 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <info-head mode="users"></info-head>
+    <info-head mode="users" id="head"></info-head>
+    <transition-box
+      ><div class="box"><a id="status">sending request</a></div></transition-box
+    >
+    <script src="/private/render/auth.js" class="server"></script>
     <script src="../lib/guiLoader.js" type="module"></script>
-    <script src="main.js"></script>
+    <script src="main.js" type="module"></script>
   </body>
 </html>

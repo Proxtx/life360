@@ -17,9 +17,14 @@
           this is the login to the life360 data collection UI. Please enter the
           password below.
         </p>
-        <m-text-input password="true" placeholder="Login"></m-text-input>
+        <m-text-input
+          password="true"
+          placeholder="Login"
+          id="login"
+        ></m-text-input>
       </div>
     </transition-box>
+    <script id="server" src="private/render/loginRedirect.js"></script>
     <script src="/lib/guiLoader.js" type="module"></script>
     <script src="main.js" type="module"></script>
   </body>

@@ -17,6 +17,12 @@
       "template": "/components/range-bar/index.html",
       "component": "/components/range-bar/main.js",
       "styles": ["/main.css", "/components/range-bar/style.css"]
+    },
+    "box": {
+      "name": "data-box",
+      "template": "/components/box/index.html",
+      "component": "/components/box/main.js",
+      "styles": ["/main.css", "/components/box/style.css"]
     }
   }
 }

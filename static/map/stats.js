@@ -11,4 +11,12 @@ const statsTransition = async () => {
   link("../stats", true);
 };
 
+export const disappear = () => {
+  stats.style.transform = "translate(-50%, 100%)";
+};
+
+export const appear = () => {
+  stats.style.transform = "translate(-50%, 0%)";
+};
+
 stats.addEventListener("click", statsTransition);

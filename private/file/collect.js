@@ -1,5 +1,6 @@
 import { getDataInTimespan, getTimespan } from "./file.js";
 import config from "@proxtx/config";
+import { increaseCounter } from "../stats.js";
 
 /**
  * Main Data access point
@@ -9,6 +10,7 @@ import config from "@proxtx/config";
  * @param {F} filter filter function
  */
 export const data = async (type, start, end, filter = (d) => d) => {
+  increaseCounter("api calls");
   let folder = config[type];
   if (!end) {
     end = (await getTimespan(folder)).end;
