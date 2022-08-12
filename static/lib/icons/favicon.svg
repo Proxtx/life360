@@ -1,0 +1,16 @@
+<!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg width="210mm" height="297mm" viewBox="0 0 210 297" version="1.1" id="svg6393" inkscape:version="1.2 (dc2aedaf03, 2022-05-15)" sodipodi:docname="icon.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview id="namedview6395" pagecolor="#505050" bordercolor="#eeeeee" borderopacity="1" inkscape:showpageshadow="0" inkscape:pageopacity="0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#505050" inkscape:document-units="mm" showgrid="false" inkscape:zoom="1.0444209" inkscape:cx="435.64811" inkscape:cy="474.90431" inkscape:window-width="1920" inkscape:window-height="1009" inkscape:window-x="1912" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="layer1"></sodipodi:namedview>
+  <defs id="defs6390"></defs>
+  <g inkscape:label="Ebene 1" inkscape:groupmode="layer" id="layer1">
+    <rect style="fill: rgb(194, 211, 205); stroke-width: 0.231194; fill-opacity: 1;" id="rect6566" width="41.031658" height="90.640526" x="36.156639" y="122.37696" transform="matrix(0.881869,-0.47149451,0,1,0,0)" inkscape:export-filename="icon.png" inkscape:export-xdpi="96" inkscape:export-ydpi="96"></rect>
+    <rect style="fill: rgb(175, 191, 192); stroke-width: 0.270459; fill-opacity: 1;" id="rect6568" width="49.414322" height="90.640541" x="71.126678" y="65.355835" transform="matrix(0.9570244,0.2900074,0,1,0,0)"></rect>
+    <rect style="fill: rgb(159, 164, 169); fill-opacity: 1; stroke-width: 0.254628;" id="rect7659" width="49.771477" height="90.640526" x="125.20639" y="148.9814" transform="matrix(0.92136414,-0.38870056,0,1,0,0)"></rect>
+    <ellipse style="fill: rgb(132, 126, 137); fill-opacity: 1; stroke-width: 0.264583;" id="path8439" cx="95.864288" cy="114.46502" rx="9.1357098" ry="9.1357059"></ellipse>
+    <path style="fill: rgb(132, 126, 137); fill-opacity: 1; stroke-width: 0.264583;" d="m 86.728577,115.89807 9.13571,24.00361 L 105,115.89807 Z" id="path10623"></path>
+    <circle style="fill: rgb(86, 73, 76); fill-opacity: 1; stroke-width: 0.264583;" id="path10625" cx="95.864288" cy="114.46502" r="5"></circle>
+    <path style="fill: rgb(1, 22, 56); fill-opacity: 0; stroke: rgb(46, 41, 78); stroke-width: 2.065; stroke-dasharray: none; stroke-opacity: 1;" d="m 95.864287,139.90168 c 8.031973,15.04705 19.496393,5.7322 19.496393,5.7322 0,0 24.54101,-32.42278 38.24457,-22.03316" id="path14590" sodipodi:nodetypes="ccc"></path>
+  </g>
+</svg>
