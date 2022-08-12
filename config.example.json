@@ -1,0 +1,7 @@
+{
+  "port": 3000,
+  "pwd": "1234",
+  "locations": "/life-360-tracker/locations/",
+  "data": "/life-360-tracker/data/",
+  "mapBoxAccessToken": "top-secret"
+}
