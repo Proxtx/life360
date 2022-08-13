@@ -85,14 +85,18 @@ export class Stats {
         let location = this.locations[time];
         let userLocation = location[this.user];
         for (let uId in location) {
-          if (!members[uId]) members[uId] = 0;
           let memberLocation = location[uId];
-          members[uId] += calcCrow(
-            userLocation.latitude,
-            userLocation.longitude,
-            memberLocation.latitude,
-            memberLocation.longitude
-          );
+          if (
+            calcCrow(
+              userLocation.latitude,
+              userLocation.longitude,
+              memberLocation.latitude,
+              memberLocation.longitude
+            ) <= 0.1
+          ) {
+            if (!members[uId]) members[uId] = 0;
+            members[uId]++;
+          }
         }
       }
 
@@ -103,7 +107,7 @@ export class Stats {
       }
 
       membersArr.sort((a, b) => {
-        return a[1] - b[1];
+        return b[1] - a[1];
       });
 
       let latestData = this.data[this.dataTimes[this.dataTimes.length - 1]];
