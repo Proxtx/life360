@@ -55,7 +55,7 @@ const drawDataOnCanvas = (canvas, data) => {
     ctx.fillRect(
       pointIndex * (canvas.width / data.dataPoints.length),
       canvas.height,
-      canvas.width / data.dataPoints.length,
+      canvas.width / data.dataPoints.length + 1,
       (canvas.height / data.max) * -point
     );
   }
