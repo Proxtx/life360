@@ -30,7 +30,13 @@
         <m-button id="expand" onclick="window.expand()">Expand</m-button>
       </div></transition-box
     >
-    <transition-box><data-box id="statsBox"></data-box></transition-box>
+    <transition-box
+      ><data-box id="statsBox"></data-box><br /><m-button
+        style="float: right"
+        onclick="location.pathname = './stats'"
+        >User Stats</m-button
+      ></transition-box
+    >
     <script src="/private/render/auth.js" class="server"></script>
     <script src="/lib/guiLoader.js" type="module"></script>
     <script src="/lib/map.js" type="module"></script>
