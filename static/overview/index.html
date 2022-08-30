@@ -30,10 +30,9 @@
         <m-button id="expand" onclick="window.expand()">Expand</m-button>
       </div></transition-box
     >
+    <transition-box><data-box id="statsBox"></data-box></transition-box>
     <transition-box
-      ><data-box id="statsBox"></data-box><br /><m-button
-        style="float: right"
-        onclick="location.pathname = './stats'"
+      ><m-button style="float: right" onclick="window.statsLink()"
         >User Stats</m-button
       ></transition-box
     >

@@ -9,6 +9,11 @@ window.expand = async () => {
   link("../map");
 };
 
+window.statsLink = async () => {
+  await new Promise((r) => setTimeout(r, 500));
+  link("../stats");
+};
+
 let stats = await meta.stats(cookie.pwd);
 document.getElementById("statsBox").component.setData(stats);
 
