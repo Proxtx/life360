@@ -61,7 +61,7 @@ const genPath = (locations, uId) => {
   let times = Object.keys(locations).sort((a, b) => a - b);
   for (let i of times) {
     let location = locations[i][uId];
-    points.push([location.latitude, location.longitude]);
+    if (location) points.push([location.latitude, location.longitude]);
   }
 
   return L.polyline(points, {
@@ -75,7 +75,7 @@ const genPlaces = (locations) => {
   for (let time in locations) {
     for (let user in locations[time]) {
       let location = locations[time][user];
-      if (location.address && !locs[location.address])
+      if (location && location.address && !locs[location.address])
         locs[location.address] = genLocationCircle(location);
     }
   }
