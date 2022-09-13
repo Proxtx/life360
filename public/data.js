@@ -5,3 +5,8 @@ export const getUsers = async (pwd) => {
   if (!auth(pwd)) return;
   return await handlers.users();
 };
+
+export const getUserPlaces = async (pwd) => {
+  if (!auth(pwd)) return;
+  return await handlers.userPlaces();
+};

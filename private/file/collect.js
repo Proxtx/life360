@@ -59,6 +59,20 @@ export const handlers = {
     return locs;
   },
 
+  userPlaces: async () => {
+    let uIds = await handlers.userIds();
+    let locs = await handlers.locationsInTimespan(uIds, 1);
+    locs = locs[Object.keys(locs)[0]];
+    let users = await handlers.users();
+
+    let places = {};
+    for (let uId in locs) {
+      if (locs[uId].address) places[users[uId].name] = locs[uId].address;
+    }
+
+    return places;
+  },
+
   week: 1.6534e-9,
   hour: 3.6e6,
 };
