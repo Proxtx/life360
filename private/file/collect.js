@@ -67,7 +67,7 @@ export const handlers = {
 
     let places = {};
     for (let uId in locs) {
-      if (locs[uId].address) places[users[uId].name] = locs[uId].address;
+      places[users[uId].name] = locs[uId].address;
     }
 
     return places;
