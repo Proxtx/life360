@@ -6,6 +6,7 @@ const startButton = document.getElementById("startButton");
 startButton.addEventListener("click", async () => {
   document.body.requestFullscreen();
   if (screen) screen.orientation.lock("landscape");
+  if (navigator.wakeLock) await navigator.wakeLock.request("screen");
   startButton.style.display = "none";
 
   document.getElementById("map").style.display = "unset";
