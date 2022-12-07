@@ -185,6 +185,9 @@ export class Component {
       case "description":
         this.elements.description.innerText = newValue;
         break;
+      case "hidesmallwrap":
+        this.elements.smallWrap.style.display = "none";
+        break;
       case "mode":
         this.changeMode(newValue);
         break;
