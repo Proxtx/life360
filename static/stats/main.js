@@ -8,6 +8,8 @@ let statusDisplay = document.getElementById("status");
 let prevBoxes = [];
 
 const loadStats = async () => {
+  statusDisplay.innerText = "sending request";
+
   for (let box of prevBoxes) {
     box.component.disappear();
     setTimeout(() => (box.style.display = "none"), 1000);
