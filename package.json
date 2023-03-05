@@ -19,7 +19,7 @@
   "homepage": "https://github.com/Proxtx/life360#readme",
   "dependencies": {
     "@proxtx/config": "^1.0.2",
-    "@proxtx/framework": "^1.5.3",
-    "@proxtx/material": "^1.2.6"
+    "@proxtx/framework": "^1.5.8",
+    "@proxtx/material": "^1.2.91"
   }
 }
