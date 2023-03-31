@@ -11,7 +11,7 @@ startButton.addEventListener("click", async () => {
   if (navigator.wakeLock) await navigator.wakeLock.request("screen");
   startButton.style.display = "none";
 
-  document.getElementById("map").style.display = "unset";
+  document.getElementById("map").style.opacity = "1";
 
   showDataLoop();
 });
@@ -33,7 +33,7 @@ const showDataLoop = async () => {
 if (u.searchParams.get("skipWelcome")) {
   startButton.style.display = "none";
 
-  document.getElementById("map").style.display = "unset";
+  document.getElementById("map").style.opacity = "1";
 
   showDataLoop();
 }
