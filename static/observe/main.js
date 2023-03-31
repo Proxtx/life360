@@ -1,6 +1,8 @@
 import { locations } from "../lib/api.js";
 import { renderLocationData } from "../lib/map.js";
 
+let u = new URL(location.href);
+
 const startButton = document.getElementById("startButton");
 
 startButton.addEventListener("click", async () => {
@@ -27,3 +29,11 @@ const showDataLoop = async () => {
   await new Promise((r) => setTimeout(r, 30000));
   showDataLoop();
 };
+
+if (u.searchParams.get("skipWelcome")) {
+  startButton.style.display = "none";
+
+  document.getElementById("map").style.display = "unset";
+
+  showDataLoop();
+}
