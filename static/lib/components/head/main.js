@@ -163,6 +163,7 @@ export class Component {
   }
 
   async disappear() {
+    this.changeTimeSelectVisibility(false);
     await this.changeOpacity(0);
   }
 
