@@ -152,7 +152,7 @@ export class Component {
   }
 
   async updateConfig(newConfig) {
-    await this.disappear();
+    await this.changeOpacity(0);
     this.activeConfig = newConfig;
     this.applyConfig();
     await this.appear();
