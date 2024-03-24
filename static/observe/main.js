@@ -1,3 +1,6 @@
+let u = new URL(location.href);
+const startButton = document.getElementById("startButton");
+
 if (u.searchParams.get("skipWelcome")) {
   startButton.style.display = "none";
 
@@ -9,10 +12,6 @@ let end = u.searchParams.get("end");
 
 import { locations, data } from "../lib/api.js";
 import { renderLocationData } from "../lib/map.js";
-
-let u = new URL(location.href);
-
-const startButton = document.getElementById("startButton");
 
 startButton.addEventListener("click", async () => {
   document.body.requestFullscreen();
@@ -30,7 +29,7 @@ const showData = async () => {
   if (!start || !end) overview = await locations.getOverview(cookie.pwd);
   else {
     let users = Object.keys(await data.getUsers(cookie.pwd));
-    await locations.getLocationsInTimespan(
+    overview = await locations.getLocationsInTimespan(
       cookie.pwd,
       users,
       Number(start),
