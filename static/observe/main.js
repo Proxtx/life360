@@ -37,7 +37,7 @@ const showData = async () => {
       Number(end)
     );
   }
-  renderLocationData(overview);
+  renderLocationData(overview, false);
 };
 
 const showDataLoop = async () => {

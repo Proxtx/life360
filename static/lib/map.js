@@ -28,7 +28,7 @@ const clearMap = () => {
   });
 };
 
-export const renderLocationData = (locationData) => {
+export const renderLocationData = (locationData, transition = true) => {
   clearMap();
   let bounds = [];
 
@@ -43,7 +43,10 @@ export const renderLocationData = (locationData) => {
     bounds.push([element.location.latitude, element.location.longitude]);
   });
 
-  if (bounds.length >= 1) map.flyToBounds(bounds, { duration: 2 });
+  if (bounds.length >= 1) {
+    if (transition) map.flyToBounds(bounds, { duration: 2 });
+    else map.fitBounds(bounds);
+  }
 };
 
 const genPaths = (locations) => {
