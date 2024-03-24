@@ -1,4 +1,13 @@
-import { locations } from "../lib/api.js";
+if (u.searchParams.get("skipWelcome")) {
+  startButton.style.display = "none";
+
+  document.getElementById("map").style.opacity = "1";
+}
+
+let start = u.searchParams.get("start");
+let end = u.searchParams.get("end");
+
+import { locations, data } from "../lib/api.js";
 import { renderLocationData } from "../lib/map.js";
 
 let u = new URL(location.href);
@@ -17,7 +26,17 @@ startButton.addEventListener("click", async () => {
 });
 
 const showData = async () => {
-  let overview = await locations.getOverview(cookie.pwd);
+  let overview;
+  if (!start || !end) overview = await locations.getOverview(cookie.pwd);
+  else {
+    let users = Object.keys(await data.getUsers(cookie.pwd));
+    await locations.getLocationsInTimespan(
+      cookie.pwd,
+      users,
+      Number(start),
+      Number(end)
+    );
+  }
   renderLocationData(overview);
 };
 
@@ -31,9 +50,5 @@ const showDataLoop = async () => {
 };
 
 if (u.searchParams.get("skipWelcome")) {
-  startButton.style.display = "none";
-
-  document.getElementById("map").style.opacity = "1";
-
   showDataLoop();
 }
