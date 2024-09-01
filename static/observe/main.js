@@ -9,6 +9,7 @@ if (u.searchParams.get("skipWelcome")) {
 
 let start = u.searchParams.get("start");
 let end = u.searchParams.get("end");
+let signature = u.searchParams.get("signature");
 
 import { locations, data } from "../lib/api.js";
 import { renderLocationData } from "../lib/map.js";
@@ -29,12 +30,21 @@ const showData = async () => {
   if (!start || !end) overview = await locations.getOverview(cookie.pwd);
   else {
     let users = Object.keys(await data.getUsers(cookie.pwd));
-    overview = await locations.getLocationsInTimespan(
-      cookie.pwd,
-      users,
-      Number(start),
-      Number(end)
-    );
+    if (!signature) {
+      overview = await locations.getLocationsInTimespan(
+        cookie.pwd,
+        users,
+        Number(start),
+        Number(end)
+      );
+    } else {
+      overview = await locations.getLocationsInTimespanSignature(
+        signature,
+        users,
+        Number(start),
+        Number(end)
+      );
+    }
   }
   renderLocationData(overview, false);
 };
