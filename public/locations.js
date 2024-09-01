@@ -56,7 +56,6 @@ export const getLocationsInTimespanSignature = async (
 export const signLocations = async (pwd, start, end) => {
   if (!auth(pwd)) return;
   if (!privateKey) return;
-  console.log("go");
   const sign = crypto.createSign("RSA-SHA256");
   let data = JSON.stringify({ start, end });
   sign.update(data);
