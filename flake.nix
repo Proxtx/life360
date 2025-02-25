@@ -84,6 +84,16 @@
               default = {};
               description = "Configuration for Life360";
             };
+
+            publicKey = lib.mkOption {
+              type = lib.types.path;
+              description = "Public Key Path";
+            };
+
+            privateKey = lib.mkOption {
+              type = lib.types.path;
+              description = "Private Key Path";
+            };
           };
 
           config = lib.mkIf config.services.life360.enable {
@@ -110,6 +120,8 @@
               mkdir -p /var/lib/life360
               cp -r ${config.services.life360.package}/* /var/lib/life360/
               cp ${(pkgs.formats.json {}).generate "" config.services.life360.config} /var/lib/life360/config.json
+              cp ${config.services.life360.publicKey} /var/lib/life360/public-key.pem
+              cp ${config.services.life360.privateKey} /var/lib/life360/private-key.pem
               chown -R ${config.services.life360.user}:${config.services.life360.group} /var/lib/life360
             '';
           };
