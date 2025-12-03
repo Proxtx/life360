@@ -57,6 +57,12 @@
               default = {};
             };
 
+            nodejs = mkOption {
+              type = types.package;
+              default = pkgs.nodejs_20;
+              description = "Node.js package to use for running the service";
+            };
+
             publicKey = mkOption {
               type = types.nullOr types.path;
               description = "Public Key Path";
@@ -91,7 +97,7 @@
               after = [ "network.target" ];
 
               serviceConfig = {
-                ExecStart = "${pkgs.nodejs_20}/bin/node ${workDir}/main.js";
+                ExecStart = "${cfg.nodejs}/bin/node ${workDir}/main.js";
                 Restart = "always";
                 WorkingDirectory = workDir;
               };
